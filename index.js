@@ -1,6 +1,3 @@
-require('6to5/register')
-require('6to5/polyfill')
-
 var argv    = require('minimist')(process.argv.slice(2)),
     express = require('express')
 
