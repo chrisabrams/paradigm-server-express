@@ -9,12 +9,18 @@ var argv                 = require('minimist')(process.argv.slice(2)),
     serveStatic          = require('serve-static'),
     util                 = require('util')
 
-module.exports = (server) => {
+module.exports = (server, options) => {
 
-  server.set('views', path.join(process.cwd(), './views'))
+  var assetsPath = (options.assetsPath   || false),
+      routesPath = (options.paths.routes || './routes'),
+      staticPath = (options.paths.static || './public'),
+      viewsPath  = (options.paths.views  || './views')
+
+  server.set('views', path.join(process.cwd(), viewsPath))
   server.set('view engine', 'hbs')
   server.engine('hbs', hbs.__express)
-  server.use(serveStatic(path.join(process.cwd(), './public')))
+  server.use(serveStatic(path.join(process.cwd(), staticPath)))
+
   server.use(function(req, res, next) {
 
     // Express shouldn't be serving these, as serveStatic should be catching them.
@@ -41,7 +47,7 @@ module.exports = (server) => {
   server.use(morgan('combined'))
 
   // Cache express endpoints for duration of node process while developing
-  if((typeof process.env.NODE_ENV == 'undefined' || process.env.NODE_ENV == 'development') && argv.cache) {
+  if(((typeof process.env.NODE_ENV == 'undefined' || process.env.NODE_ENV == 'development') && argv.cache) || options.routeCache){
     console.log("Route caching enabled.")
 
     var routeCache = require('route-cache')
@@ -51,9 +57,10 @@ module.exports = (server) => {
   }
 
   loadHandlebarsExtras({
+    assetsPath   : assetsPath,
     Handlebars   : hbs,
-    helpersPath  : './views/helpers',
-    partialsPath : './views/partials'
+    helpersPath  : viewsPath + '/helpers',
+    partialsPath : viewsPath + '/partials'
   })
 
   require(path.join(process.cwd(), './server/routes'))(server)

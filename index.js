@@ -8,7 +8,7 @@ class ParadigmExpressServer {
     var port   = (process.env.NODE_PORT || options.port || 5050),
         server = express()
 
-    require('./server/config')(server)
+    require('./server/config')(server, options)
 
     server.listen(port)
 

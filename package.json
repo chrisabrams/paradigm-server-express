@@ -1,6 +1,6 @@
 {
   "name": "paradigm-server-express",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,7 @@
     "hbs": "^2.8.0",
     "minimist": "^1.1.0",
     "morgan": "^1.5.1",
-    "paradigm-load-handlebars-extras": "*",
+    "paradigm-load-handlebars-extras": "0.0.1",
     "route-cache": "^0.1.1",
     "serve-static": "^1.8.1"
   }
