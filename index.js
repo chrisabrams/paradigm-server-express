@@ -5,14 +5,31 @@ class ParadigmExpressServer {
 
   constructor(options) {
 
-    var port   = (process.env.NODE_PORT || options.port || 5050),
-        server = express()
+    var port = this.port = (process.env.NODE_PORT || options.port || 5050)
+
+    var server = this.server = express()
 
     require('./server/config')(server, options)
 
-    server.listen(port)
-
     console.log('Express server listening on port:', port)
+
+  }
+
+  start() {
+
+    this.server = this.server.listen(this.port)
+
+  }
+
+  stop() {
+
+    this.server.close()
+
+  }
+
+  use() {
+
+    this.server.use.apply(this.server, arguments)
 
   }
 
