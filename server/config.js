@@ -12,14 +12,15 @@ var argv                 = require('minimist')(process.argv.slice(2)),
 module.exports = (server, options) => {
 
   var assetsPath = (options.assetsPath   || false),
+      cwd        = options.cwd           || process.cwd(),
       routesPath = (options.paths.routes || './routes'),
       staticPath = (options.paths.static || './public'),
       viewsPath  = (options.paths.views  || './views')
 
-  server.set('views', path.join(process.cwd(), viewsPath))
+  server.set('views', path.join(cwd, viewsPath))
   server.set('view engine', 'hbs')
   server.engine('hbs', hbs.__express)
-  server.use(serveStatic(path.join(process.cwd(), staticPath)))
+  server.use(serveStatic(path.join(cwd, staticPath)))
 
   server.use(function(req, res, next) {
 
@@ -58,11 +59,12 @@ module.exports = (server, options) => {
 
   loadHandlebarsExtras({
     assetsPath   : assetsPath,
+    cwd: cwd,
     Handlebars   : hbs,
     helpersPath  : viewsPath + '/helpers',
     partialsPath : viewsPath + '/partials'
   })
 
-  require(path.join(process.cwd(), './server/routes'))(server)
+  require(path.join(cwd, './server/routes'))(server)
 
 }

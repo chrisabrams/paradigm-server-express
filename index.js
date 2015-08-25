@@ -5,7 +5,7 @@ class ParadigmExpressServer {
 
   constructor(options) {
 
-    var port = this.port = (process.env.NODE_PORT || options.port || 5050)
+    var port = this.port = (options.port || 5050)
 
     var server = this.server = express()
 
