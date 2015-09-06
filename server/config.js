@@ -21,6 +21,9 @@ module.exports = (server, options) => {
   server.set('view engine', 'hbs')
   server.engine('hbs', hbs.__express)
   server.use(serveStatic(path.join(cwd, staticPath)))
+  server.use(morgan('combined'))
+  server.use(bodyParser.urlencoded({extended: true}))
+  server.use(bodyParser.json({strict: false}))
 
   server.use(function(req, res, next) {
 
@@ -43,9 +46,6 @@ module.exports = (server, options) => {
     next()
 
   })
-
-  server.use(bodyParser.json())
-  server.use(morgan('combined'))
 
   // Cache express endpoints for duration of node process while developing
   if(((typeof process.env.NODE_ENV == 'undefined' || process.env.NODE_ENV == 'development') && argv.cache) || options.routeCache){
