@@ -20,6 +20,12 @@ module.exports = (server, options) => {
   server.set('views', path.join(cwd, viewsPath))
   server.set('view engine', 'hbs')
   server.engine('hbs', hbs.__express)
+
+  server.use(function (req, res, next) {
+    res.removeHeader('X-Powered-By')
+    next()
+  })
+
   server.use(serveStatic(path.join(cwd, staticPath)))
   server.use(morgan('combined'))
   server.use(bodyParser.urlencoded({extended: true}))
