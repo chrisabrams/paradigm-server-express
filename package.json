@@ -1,6 +1,6 @@
 {
   "name": "paradigm-server-express",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,13 +9,13 @@
   "author": "Chris Abrams <mail@chrisabrams.com>",
   "license": "MIT",
   "dependencies": {
-    "body-parser": "^1.11.0",
+    "body-parser": "^1.14.1",
     "chalk": "^1.1.0",
-    "express": "^4.11.2",
+    "express": "^4.13.3",
     "handlebars": "^3.0.3",
-    "hbs": "^3.1.0",
+    "hbs": "^4.0.0",
     "minimist": "^1.1.0",
-    "morgan": "^1.5.1",
+    "morgan": "^1.6.1",
     "paradigm-load-handlebars-extras": "0.0.2",
     "route-cache": "^0.1.1",
     "serve-static": "^1.10.0"
